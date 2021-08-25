@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>example</title>
+    <link rel="stylesheet" href="sample.css" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function()
+        {
+		
+            $('#send').click(function()
+            {
+                var data = {
+		            email : $('#email').val(),
+		            contents : $('#contents').val()
+	            };
+ 
+                $.ajax({
+                    type: "post",
+                    url: "mail_send.php",
+                    data: data,
+                    success: function(data, dataType)
+                    {
+                        document.getElementById( "phplog" ).value = data ;
+				
+                    },
+                    error: function()
+                    {
+                        alert('送信失敗');
+                    }
+                });
+
+                return false;
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<form id="testForm" name="testForm" method="post" >
+<ul>
+<li><input type="text" size=40 id="email" name="email" placeholder="送信先メールアドレス"></li>
+<li><textarea name="contents" rows="10" cols="80" id="contents" placeholder="内容" ></textarea>
+<li><textarea name="phplog" rows="10" cols="80" id="phplog" placeholder="実行ログ" ></textarea></li>
+
+</ul>
+
+<p class="more"><input id="send" type="submit" value="メール送信"onclick="clickwrite()"/>
+       
+<input type="reset" value="クリア">
+</form>
+<div id="result"></div>
+
+</body>
+</html>
+
+<script>
+function clickwrite(){
+
+
+    if(($('#contents').val()=="")){
+    alert("内容が未入力です");    
+    }
+
+
+}
+</script>
